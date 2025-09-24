@@ -1,5 +1,5 @@
 
-const ProdutosSalvos = JSON.parse(localStorage.getItem('meusProdutos'));
+// const ProdutosSalvos = JSON.parse(localStorage.getItem('meusProdutos'));
 
 let nome = document.querySelector("#nomeL")
 let serie = document.querySelector("#serieL")
@@ -7,11 +7,40 @@ let data = document.querySelector("#dataL")
 let quantidade = document.querySelector("#quantidadeL")
 
 function buscar() {
-    nome.innerHTML = `${ProdutosSalvos[0].nome}`
-    serie.innerHTML = `${ProdutosSalvos[0].serie}`
-    data.innerHTML = `${ProdutosSalvos[0].data}`
-    quantidade.innerHTML = `${ProdutosSalvos[0].data}`
+  const ProdutosSalvos = JSON.parse(localStorage.getItem('meusProdutos'));
+  const tbody = document.querySelector('#tabelaProdutos tbody');
+
+  tbody.innerHTML = ''; // Limpa a tabela antes de mostrar
+
+  if (!ProdutosSalvos || ProdutosSalvos.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="4">Nenhum produto salvo.</td></tr>`;
+    return;
+  }
+
+  ProdutosSalvos.forEach(produto => {
+    const linha = `
+      <tr>
+        <td>${produto.nome}</td>
+        <td>${produto.serie}</td>
+        <td>${produto.quantidade}</td>
+        <td>${produto.data}</td>
+      </tr>
+    `;
+    tbody.innerHTML += linha;
+  });
 }
+    
+
+
+
+// function buscar() {
+//     nome.innerHTML = `${ProdutosSalvos[0].nome}`
+//     serie.innerHTML = `${ProdutosSalvos[0].serie}`
+//     data.innerHTML = `${ProdutosSalvos[0].data}`
+//     quantidade.innerHTML = `${ProdutosSalvos[0].data}`
+// }
+
+console.log(ProdutosSalvos)
 
 
 function openCard() {
@@ -23,7 +52,6 @@ function openCard() {
         cardMenu.style.display = `none`;
     }
 }
-
 
 
 
